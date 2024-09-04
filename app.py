@@ -18,7 +18,7 @@ class NomGenere(db.Model):
     def __repr__(self):
         return f'<NomGenere {self.nom}>'
 
-# Création de la base de données et des tables
+# Créer la base de données et les tables si elles n'existent pas déjà
 with app.app_context():
     db.create_all()
 
@@ -69,5 +69,4 @@ def generate():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))  # Change le port par défaut à 8000
     app.run(debug=True, host='0.0.0.0', port=port)
-
 
