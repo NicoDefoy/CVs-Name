@@ -5,11 +5,8 @@ import os
 
 app = Flask(__name__)
 
-# Obtenir le chemin absolu de la base de données
-db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'noms.db')
-
-# Configuration de la base de données SQLite avec chemin absolu
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+# Utiliser l'URL PostgreSQL de Railway
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:qTqKLbmwfwWmLEkUlGupYSAsduWIRqDOZ@meticulous-empathy-postgresql.railway.app:5432/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -72,4 +69,5 @@ def generate():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5001))
     app.run(debug=True, host='0.0.0.0', port=port)
+
 
