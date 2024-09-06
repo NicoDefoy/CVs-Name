@@ -5,56 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flinter's Name</title>
     <style>
-        /* Styles généraux */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'Arial', sans-serif; /* Vous pouvez utiliser une police spécifique de Flint si vous avez accès */
-            background-color: #0C0C0D; /* Couleur de fond principale de Flint */
-            color: #FFFFFF; /* Couleur de texte blanche */
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #2B2D42; /* Couleur de fond proche de Flint */
         }
         .container {
             text-align: center;
-            background-color: #16161D; /* Couleur de fond de la carte */
-            padding: 40px;
+            background: #FFFFFF; /* Fond blanc pour le conteneur */
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         h1 {
             margin-bottom: 20px;
-            color: #3C4AE7; /* Couleur du texte en utilisant la couleur bleue de Flint */
-            font-weight: bold;
+            color: #2C3E50; /* Couleur du texte principal de Flint */
+            font-size: 2em;
         }
         button {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #FF9900; /* Couleur du bouton */
+            background-color: #F39C12; /* Couleur du bouton orange de Flint */
+            color: #FFFFFF;
             border: none;
-            color: #FFFFFF; /* Couleur du texte du bouton */
             border-radius: 5px;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #FFB74D; /* Couleur de survol pour le bouton */
+            background-color: #D35400; /* Couleur de survol */
         }
         h2 {
             margin-top: 20px;
-            color: #FFFFFF;
+            color: #2C3E50; /* Couleur du texte du résultat */
         }
-        .logo {
+        img {
+            width: 150px;
             margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Logo de Flint -->
-        <div class="logo">
-            <img src="static/FLINT_RVB_LINE_COLOR.jpg" alt="Logo Flint" width="150">
-        </div>
+        <img src="{{ url_for('static', filename='FLINT_RVB_LINE_COLOR.jpg') }}" alt="Flint Logo">
         <h1>Flinter's Name</h1>
         <form action="/generate" method="post">
             <button type="submit">Générer un nom</button>
@@ -65,3 +62,4 @@
     </div>
 </body>
 </html>
+
