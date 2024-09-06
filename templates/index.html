@@ -5,47 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flinter's Name</title>
     <style>
+        /* Styles généraux */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #1c1c1c; /* Fond sombre */
-            color: #ffffff; /* Texte blanc */
+            font-family: 'Arial', sans-serif; /* Vous pouvez utiliser une police spécifique de Flint si vous avez accès */
+            background-color: #0C0C0D; /* Couleur de fond principale de Flint */
+            color: #FFFFFF; /* Couleur de texte blanche */
         }
         .container {
             text-align: center;
-            background: #333333; /* Arrière-plan de la boîte */
-            padding: 20px;
+            background-color: #16161D; /* Couleur de fond de la carte */
+            padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         h1 {
             margin-bottom: 20px;
-            color: #00ffcc; /* Couleur d'accent vert clair */
+            color: #3C4AE7; /* Couleur du texte en utilisant la couleur bleue de Flint */
+            font-weight: bold;
         }
         button {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #00ffcc; /* Couleur d'accent vert clair */
+            background-color: #FF9900; /* Couleur du bouton */
             border: none;
+            color: #FFFFFF; /* Couleur du texte du bouton */
             border-radius: 5px;
-            color: #1c1c1c; /* Texte foncé sur bouton clair */
         }
         button:hover {
-            background-color: #00cc99; /* Couleur d'accent vert un peu plus foncé au survol */
+            background-color: #FFB74D; /* Couleur de survol pour le bouton */
         }
         h2 {
             margin-top: 20px;
-            color: #cccccc; /* Texte gris clair */
+            color: #FFFFFF;
+        }
+        .logo {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Logo de Flint -->
+        <div class="logo">
+            <img src="static/FLINT_RVB_LINE_COLOR.jpg" alt="Logo Flint" width="150">
+        </div>
         <h1>Flinter's Name</h1>
         <form action="/generate" method="post">
             <button type="submit">Générer un nom</button>
