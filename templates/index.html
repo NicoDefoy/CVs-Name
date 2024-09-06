@@ -11,47 +11,37 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'Helvetica Neue', sans-serif;
-            background-color: #2B2D42; /* Couleur de fond proche de Flint */
+            font-family: 'Arial', sans-serif;
+            background-color: #282a36; /* Couleur de fond plus claire */
         }
         .container {
             text-align: center;
-            background: #FFFFFF; /* Fond blanc pour le conteneur */
-            padding: 30px;
+            background: #44475a; /* Couleur de la boîte */
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
+            color: #50fa7b; /* Couleur du texte */
             margin-bottom: 20px;
-            color: #2C3E50; /* Couleur du texte principal de Flint */
-            font-size: 2em;
         }
         button {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #F39C12; /* Couleur du bouton orange de Flint */
-            color: #FFFFFF;
+            background-color: #ffb86c; /* Couleur du bouton */
+            color: #282a36;
             border: none;
             border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #D35400; /* Couleur de survol */
         }
         h2 {
             margin-top: 20px;
-            color: #2C3E50; /* Couleur du texte du résultat */
-        }
-        img {
-            width: 150px;
-            margin-bottom: 20px;
+            color: #f8f8f2;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="{{ url_for('static', filename='FLINT_RVB_LINE_COLOR.jpg') }}" alt="Flint Logo">
         <h1>Flinter's Name</h1>
         <form action="/generate" method="post">
             <button type="submit">Générer un nom</button>
@@ -62,4 +52,6 @@
     </div>
 </body>
 </html>
+
+
 
