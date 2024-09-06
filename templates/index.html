@@ -11,39 +11,34 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #282a36; /* Couleur de fond plus claire */
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
         }
         .container {
             text-align: center;
-            background: #44475a; /* Couleur de la boîte */
+            background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
-            color: #50fa7b; /* Couleur du texte */
             margin-bottom: 20px;
         }
         button {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #ffb86c; /* Couleur du bouton */
-            color: #282a36;
-            border: none;
-            border-radius: 5px;
         }
         h2 {
             margin-top: 20px;
-            color: #f8f8f2;
+            color: #333;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Flinter's Name</h1>
-        <form action="/generate" method="post">
+        <form action="/" method="post">
             <button type="submit">Générer un nom</button>
         </form>
         {% if nom %}
@@ -52,6 +47,7 @@
     </div>
 </body>
 </html>
+
 
 
 
