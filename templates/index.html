@@ -6,39 +6,44 @@
     <title>Flinter's Name</title>
     <style>
         body {
+            background-color: #2e2f8d; /* Bleu de fond */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
         }
         .container {
             text-align: center;
-            background: white;
+            background: white; /* Encart blanc */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
             margin-bottom: 20px;
+            color: #2e2f8d; /* Texte bleu */
         }
         button {
+            background-color: #ff6347; /* Rouge pour le bouton */
+            color: white;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
+            border: none;
+            border-radius: 5px;
         }
         h2 {
             margin-top: 20px;
-            color: #333;
+            color: #2e2f8d; /* Texte bleu */
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Flinter's Name</h1>
-        <form action="/" method="post">
+        <form action="/generate" method="post">
             <button type="submit">Générer un nom</button>
         </form>
         {% if nom %}
@@ -47,6 +52,7 @@
     </div>
 </body>
 </html>
+
 
 
 
