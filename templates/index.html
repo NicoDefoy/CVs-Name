@@ -43,7 +43,8 @@
 <body>
     <div class="container">
         <h1>Flinter's Name</h1>
-        <form action="/generate" method="post">
+        <!-- Changement de l'action du formulaire vers la route '/' -->
+        <form action="/" method="post">
             <button type="submit">Générer un nom</button>
         </form>
         {% if nom %}
@@ -52,9 +53,6 @@
     </div>
 </body>
 </html>
-
-
-
 
 
 
