@@ -6,44 +6,48 @@
     <title>Flinter's Name</title>
     <style>
         body {
-            background-color: #2e2f8d; /* Bleu de fond */
+            background: linear-gradient(to bottom, #dbe9f5, #4169e1); /* Dégradé de bleu */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Open Sans', Arial, sans-serif;
         }
         .container {
             text-align: center;
             background: white; /* Encart blanc */
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px; /* Coins arrondis */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         h1 {
             margin-bottom: 20px;
-            color: #2e2f8d; /* Texte bleu */
+            color: #333; /* Texte plus foncé */
+            font-size: 24px;
         }
         button {
-            background-color: #ff6347; /* Rouge pour le bouton */
+            background-color: #4CAF50; /* Vert pour le bouton */
             color: white;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px; /* Coins arrondis pour le bouton */
+            transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
+        }
+        button:hover {
+            background-color: #45a049; /* Changement de couleur au survol */
         }
         h2 {
             margin-top: 20px;
-            color: #2e2f8d; /* Texte bleu */
+            color: #333; /* Texte plus foncé */
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Flinter's Name</h1>
-        <!-- Changement de l'action du formulaire vers la route '/' -->
         <form action="/" method="post">
             <button type="submit">Générer un nom</button>
         </form>
@@ -53,6 +57,7 @@
     </div>
 </body>
 </html>
+
 
 
 
