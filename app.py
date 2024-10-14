@@ -72,21 +72,23 @@ def index():
 
     return render_template('index.html')
 
-# Fonction pour ajouter le nom dans Google Sheets
+# Fonction pour ajouter le nom dans Google Sheets avec débogage
 def ajouter_nom_dans_google_sheet(nom):
     try:
+        print("Débogage : Initialisation du service Google Sheets")
         service = build('sheets', 'v4', credentials=CREDS)
         sheet = service.spreadsheets()
         values = [[nom]]
-        body = {
-            'values': values
-        }
+        body = {'values': values}
+        
+        print("Débogage : Envoi de la requête pour ajouter le nom dans Google Sheets")
         result = sheet.values().append(
             spreadsheetId=spreadsheet_id,
             range=sheet_range,
             valueInputOption="USER_ENTERED",
             body=body
         ).execute()
+        
         print(f"{result.get('updates').get('updatedCells')} cellule(s) ajoutée(s) dans Google Sheets.")
     except Exception as e:
         print(f"Erreur lors de l'ajout du nom dans Google Sheets: {e}")
