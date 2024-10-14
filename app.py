@@ -1,19 +1,29 @@
 from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
 import random
-import gspread
+import os
+import json
 from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
 
+# Initialiser l'application Flask
 app = Flask(__name__)
 
-# Configuration de Google Sheets
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-CREDS = Credentials.from_service_account_file("Noms_CV/client_secret.json", scopes=SCOPES)
-client = gspread.authorize(CREDS)
+# Configuration de la base de données SQLite pour stocker les noms générés
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///noms.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
-# Ouvrir le Google Sheet
-sheet = client.open("Flinter's Name").sheet1
+# Modèle pour la base de données
+class NomGenere(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nom = db.Column(db.String(100), nullable=False)
 
-# Liste complète d'adjectifs
+# Créer la base de données si elle n'existe pas
+with app.app_context():
+    db.create_all()
+
+# Listes d'adjectifs et d'animaux
 adjectives = [
     "Amazing", "Brilliant", "Clever", "Dazzling", "Excellent", "Fantastic",
     "Glorious", "Heroic", "Incredible", "Joyful", "Kind", "Luminous", "Magnificent",
@@ -24,7 +34,6 @@ adjectives = [
     "Passionate", "Quirky", "Resilient", "Strong", "Talented", "Upbeat", "Valiant", "Wise"
 ]
 
-# Liste complète d'animaux
 animals = [
     "Lion", "Tiger", "Bear", "Eagle", "Shark", "Elephant", "Giraffe", "Dolphin", "Whale",
     "Penguin", "Kangaroo", "Panda", "Wolf", "Fox", "Rabbit", "Deer", "Horse", "Zebra",
@@ -32,6 +41,15 @@ animals = [
     "Crab", "Lobster", "Seahorse", "Clownfish"
 ]
 
+# Initialiser les credentials Google Sheets à partir de la variable d'environnement
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+CREDS = Credentials.from_service_account_info(
+    json.loads(os.getenv('GOOGLE_CREDENTIALS_JSON')), scopes=SCOPES
+)
+spreadsheet_id = "Votre_ID_de_Sheet"  # Remplacez par l'ID de votre Google Sheet
+sheet_range = "Noms!A:A"  # Plage où sont stockés les noms dans la feuille
+
+# Route pour l'index
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -40,11 +58,39 @@ def index():
         animal = random.choice(animals)
         generated_name = f"{adjective} {animal}"
 
-        # Enregistrer dans Google Sheet
-        sheet.append_row([generated_name])
+        # Vérifier que le nom n'existe pas déjà dans la base de données locale
+        if not NomGenere.query.filter_by(nom=generated_name).first():
+            # Enregistrer dans la base de données locale
+            nouveau_nom = NomGenere(nom=generated_name)
+            db.session.add(nouveau_nom)
+            db.session.commit()
+
+            # Ajouter le nom dans Google Sheets
+            ajouter_nom_dans_google_sheet(generated_name)
 
         return render_template('index.html', nom=generated_name)
+
     return render_template('index.html')
 
+# Fonction pour ajouter le nom dans Google Sheets
+def ajouter_nom_dans_google_sheet(nom):
+    try:
+        service = build('sheets', 'v4', credentials=CREDS)
+        sheet = service.spreadsheets()
+        values = [[nom]]
+        body = {
+            'values': values
+        }
+        result = sheet.values().append(
+            spreadsheetId=spreadsheet_id,
+            range=sheet_range,
+            valueInputOption="USER_ENTERED",
+            body=body
+        ).execute()
+        print(f"{result.get('updates').get('updatedCells')} cellule(s) ajoutée(s) dans Google Sheets.")
+    except Exception as e:
+        print(f"Erreur lors de l'ajout du nom dans Google Sheets: {e}")
+
+# Lancer l'application
 if __name__ == '__main__':
     app.run(debug=True)
