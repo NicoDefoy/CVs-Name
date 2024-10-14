@@ -46,7 +46,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 CREDS = Credentials.from_service_account_info(
     json.loads(os.getenv('GOOGLE_CREDENTIALS_JSON')), scopes=SCOPES
 )
-spreadsheet_id = "190N64LuG9nEGDa0i7C0kfnXfjqC-FWAtyomqbVjjnTc"  # ID de la feuille Google Sheet
+spreadsheet_id = os.getenv("GOOGLE_SHEET_ID")  # Utilisation de la variable d'environnement pour l'ID
 sheet_range = "Noms!A:A"  # Plage où sont stockés les noms dans la feuille
 
 # Route pour l'index
@@ -58,8 +58,11 @@ def index():
         animal = random.choice(animals)
         generated_name = f"{adjective} {animal}"
 
+        print(f"Nom généré : {generated_name}")  # Debug: affichage du nom généré
+
         # Vérifier que le nom n'existe pas déjà dans la base de données locale
         if not NomGenere.query.filter_by(nom=generated_name).first():
+            print("Nom unique, ajout à la base de données locale")  # Debug: nom unique
             # Enregistrer dans la base de données locale
             nouveau_nom = NomGenere(nom=generated_name)
             db.session.add(nouveau_nom)
@@ -67,6 +70,8 @@ def index():
 
             # Ajouter le nom dans Google Sheets
             ajouter_nom_dans_google_sheet(generated_name)
+        else:
+            print("Nom déjà existant dans la base locale")  # Debug: nom déjà existant
 
         return render_template('index.html', nom=generated_name)
 
