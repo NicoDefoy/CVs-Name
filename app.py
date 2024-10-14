@@ -46,7 +46,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 CREDS = Credentials.from_service_account_info(
     json.loads(os.getenv('GOOGLE_CREDENTIALS_JSON')), scopes=SCOPES
 )
-spreadsheet_id = "Flinter's Name"  # Utilisez le nom de votre Google Sheet
+spreadsheet_id = "190N64LuG9nEGDa0i7C0kfnXfjqC-FWAtyomqbVjjnTc"  # ID de la feuille Google Sheet
 sheet_range = "Noms!A:A"  # Plage où sont stockés les noms dans la feuille
 
 # Route pour l'index
