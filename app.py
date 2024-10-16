@@ -5,10 +5,10 @@ import json
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
-# Initialisation de l'application Flask
+# Initialiser l'application Flask
 app = Flask(__name__)
 
-# Listes d'adjectifs et d'animaux
+# Listes d'adjectifs et d'animaux (version étendue)
 adjectives = [
     "Amazing", "Brilliant", "Clever", "Dazzling", "Excellent", "Fantastic",
     "Glorious", "Heroic", "Incredible", "Joyful", "Kind", "Luminous", "Magnificent",
@@ -23,17 +23,16 @@ animals = [
     "Lion", "Tiger", "Bear", "Eagle", "Shark", "Elephant", "Giraffe", "Dolphin", "Whale",
     "Penguin", "Kangaroo", "Panda", "Wolf", "Fox", "Rabbit", "Deer", "Horse", "Zebra",
     "Leopard", "Cheetah", "Turtle", "Octopus", "Seal", "Otter", "Jellyfish", "Starfish",
-    "Crab", "Lobster", "Seahorse", "Clownfish", "Swan", "Peacock", "Buffalo", "Camel", 
-    "Frog", "Hawk", "Hedgehog", "Falcon", "Hippo", "Koala", "Lynx", "Owl", "Parrot"
+    "Crab", "Lobster", "Seahorse", "Clownfish"
 ]
 
-# Initialisation des credentials Google Sheets à partir de la variable d'environnement
+# Initialiser les credentials Google Sheets à partir de la variable d'environnement
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 CREDS = Credentials.from_service_account_info(
     json.loads(os.getenv('GOOGLE_CREDENTIALS_JSON')), scopes=SCOPES
 )
-spreadsheet_id = os.getenv("GOOGLE_SHEET_ID")  # Utiliser l'ID de la feuille Google Sheets dans les variables d'environnement
-sheet_range = "Noms!A1:A"  # Correction de la plage de cellules pour s'assurer que cela commence bien de A1
+spreadsheet_id = "190N64LuG9nEGDa0i7C0kfnXfjqC-FWAtyomqbVjjnTc"  # Utilisation de l'ID fourni
+sheet_range = "Noms!A2:A"  # Plage de cellules commençant après l'en-tête
 
 # Route pour l'index
 @app.route('/', methods=['GET', 'POST'])
@@ -45,7 +44,10 @@ def index():
         generated_name = f"{adjective} {animal}"
 
         # Ajouter le nom dans Google Sheets
-        if ajouter_nom_dans_google_sheet(generated_name):
+        success = ajouter_nom_dans_google_sheet(generated_name)
+
+        # Vérifier si l'ajout dans Google Sheets a réussi
+        if success:
             return render_template('index.html', nom=generated_name)
         else:
             return render_template('index.html', nom="Erreur d'ajout dans Google Sheets")
@@ -55,14 +57,12 @@ def index():
 # Fonction pour ajouter le nom dans Google Sheets
 def ajouter_nom_dans_google_sheet(nom):
     try:
-        print("Débogage : Initialisation du service Google Sheets")
         service = build('sheets', 'v4', credentials=CREDS)
         sheet = service.spreadsheets()
         values = [[nom]]
         body = {
             'values': values
         }
-        print("Débogage : Envoi de la requête pour ajouter le nom dans Google Sheets")
         result = sheet.values().append(
             spreadsheetId=spreadsheet_id,
             range=sheet_range,
