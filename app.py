@@ -46,8 +46,8 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 CREDS = Credentials.from_service_account_info(
     json.loads(os.getenv('GOOGLE_CREDENTIALS_JSON')), scopes=SCOPES
 )
-spreadsheet_id = os.getenv('GOOGLE_SHEET_ID')  # ID de votre Google Sheet depuis Koyeb
-sheet_range = "Noms!A:A"  # Plage où sont stockés les noms dans la feuille
+spreadsheet_id = os.getenv('GOOGLE_SHEET_ID')  # Utilisation de l'ID depuis la variable d'environnement
+sheet_range = "Noms!A:A"  # Plage modifiée pour correspondre au nom de la feuille
 
 # Route pour l'index
 @app.route('/', methods=['GET', 'POST'])
@@ -72,15 +72,16 @@ def index():
 
     return render_template('index.html')
 
-# Fonction pour ajouter le nom dans Google Sheets avec débogage
+# Fonction pour ajouter le nom dans Google Sheets
 def ajouter_nom_dans_google_sheet(nom):
     try:
         print("Débogage : Initialisation du service Google Sheets")
         service = build('sheets', 'v4', credentials=CREDS)
         sheet = service.spreadsheets()
         values = [[nom]]
-        body = {'values': values}
-        
+        body = {
+            'values': values
+        }
         print("Débogage : Envoi de la requête pour ajouter le nom dans Google Sheets")
         result = sheet.values().append(
             spreadsheetId=spreadsheet_id,
@@ -88,7 +89,6 @@ def ajouter_nom_dans_google_sheet(nom):
             valueInputOption="USER_ENTERED",
             body=body
         ).execute()
-        
         print(f"{result.get('updates').get('updatedCells')} cellule(s) ajoutée(s) dans Google Sheets.")
     except Exception as e:
         print(f"Erreur lors de l'ajout du nom dans Google Sheets: {e}")
