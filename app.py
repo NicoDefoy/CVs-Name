@@ -46,8 +46,8 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 CREDS = Credentials.from_service_account_info(
     json.loads(os.getenv('GOOGLE_CREDENTIALS_JSON')), scopes=SCOPES
 )
-spreadsheet_id = os.getenv('GOOGLE_SHEET_ID')  # Utilisation de l'ID depuis la variable d'environnement
-sheet_range = "Noms!A:A"  # Plage modifiée pour correspondre au nom de la feuille
+spreadsheet_id = os.getenv('GOOGLE_SHEET_ID')  # ID de la Google Sheet
+sheet_range = "A1:A"  # Plage pour les noms dans la feuille
 
 # Route pour l'index
 @app.route('/', methods=['GET', 'POST'])
