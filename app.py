@@ -16,14 +16,18 @@ adjectives = [
     "Unique", "Vibrant", "Wonderful", "Xenial", "Youthful", "Zealous", "Adventurous",
     "Bold", "Creative", "Determined", "Energetic", "Fearless", "Generous", "Humble",
     "Innovative", "Jovial", "Keen", "Lively", "Motivated", "Nurturing", "Optimistic",
-    "Passionate", "Quirky", "Resilient", "Strong", "Talented", "Upbeat", "Valiant", "Wise"
+    "Passionate", "Quirky", "Resilient", "Strong", "Talented", "Upbeat", "Valiant",
+    "Wise", "Friendly", "Gracious", "Happy", "Charming", "Brave", "Bright", "Faithful",
+    "Helpful", "Respectful", "Affectionate", "Trustworthy"
 ]
 
 animals = [
-    "Lion", "Tiger", "Bear", "Eagle", "Shark", "Elephant", "Giraffe", "Dolphin", "Whale",
-    "Penguin", "Kangaroo", "Panda", "Wolf", "Fox", "Rabbit", "Deer", "Horse", "Zebra",
-    "Leopard", "Cheetah", "Turtle", "Octopus", "Seal", "Otter", "Jellyfish", "Starfish",
-    "Crab", "Lobster", "Seahorse", "Clownfish"
+    "Lion", "Tiger", "Bear", "Eagle", "Shark", "Elephant", "Giraffe", "Dolphin",
+    "Whale", "Penguin", "Kangaroo", "Panda", "Wolf", "Fox", "Rabbit", "Deer",
+    "Horse", "Zebra", "Leopard", "Cheetah", "Turtle", "Octopus", "Seal", "Otter",
+    "Jellyfish", "Starfish", "Crab", "Lobster", "Seahorse", "Clownfish", "Camel",
+    "Hedgehog", "Swan", "Peacock", "Bison", "Raccoon", "Bat", "Koala", "Flamingo",
+    "Chimpanzee", "Owl", "Hawk", "Butterfly", "Bee", "Parrot", "Dog", "Cat", "Mouse"
 ]
 
 # Initialiser les credentials Google Sheets à partir de la variable d'environnement
