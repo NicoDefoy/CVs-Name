@@ -8,7 +8,7 @@ from googleapiclient.discovery import build
 # Initialiser l'application Flask
 app = Flask(__name__)
 
-# Listes d'adjectifs et d'animaux (version étendue)
+# Listes d'adjectifs et d'animaux
 adjectives = [
     "Amazing", "Brilliant", "Clever", "Dazzling", "Excellent", "Fantastic",
     "Glorious", "Heroic", "Incredible", "Joyful", "Kind", "Luminous", "Magnificent",
@@ -31,8 +31,8 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 CREDS = Credentials.from_service_account_info(
     json.loads(os.getenv('GOOGLE_CREDENTIALS_JSON')), scopes=SCOPES
 )
-spreadsheet_id = "190N64LuG9nEGDa0i7C0kfnXfjqC-FWAtyomqbVjjnTc"  # Utilisation de l'ID fourni
-sheet_range = "Noms!A2:A"  # Plage de cellules commençant après l'en-tête
+spreadsheet_id = os.getenv('GOOGLE_SHEET_ID')  # ID de la Google Sheet
+sheet_range = "A1:A"  # Plage pour les noms dans la feuille
 
 # Route pour l'index
 @app.route('/', methods=['GET', 'POST'])
@@ -44,10 +44,7 @@ def index():
         generated_name = f"{adjective} {animal}"
 
         # Ajouter le nom dans Google Sheets
-        success = ajouter_nom_dans_google_sheet(generated_name)
-
-        # Vérifier si l'ajout dans Google Sheets a réussi
-        if success:
+        if ajouter_nom_dans_google_sheet(generated_name):
             return render_template('index.html', nom=generated_name)
         else:
             return render_template('index.html', nom="Erreur d'ajout dans Google Sheets")
@@ -57,12 +54,14 @@ def index():
 # Fonction pour ajouter le nom dans Google Sheets
 def ajouter_nom_dans_google_sheet(nom):
     try:
+        print("Débogage : Initialisation du service Google Sheets")
         service = build('sheets', 'v4', credentials=CREDS)
         sheet = service.spreadsheets()
         values = [[nom]]
         body = {
             'values': values
         }
+        print("Débogage : Envoi de la requête pour ajouter le nom dans Google Sheets")
         result = sheet.values().append(
             spreadsheetId=spreadsheet_id,
             range=sheet_range,
